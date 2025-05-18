@@ -1,42 +1,47 @@
 from flask import Flask, request, session, redirect, url_for, render_template
 
 app = Flask(__name__)
-app.secret_key = 'ctfkey'  # Insecure on purpose (for CTF)
+app.secret_key = 'ctfkey'  # Insecure on purpose for CTF
 
-# Fake user database
+# Simulate flag hidden in the *other* user's profile
 users = {
     1: {
         'username': 'alice',
         'password': 'alicepass',
-        'secret': 'FLAG{alice_secret_flag}',
-        'email': 'alice@example.com'
+        'email': 'alice@example.com',
+        'secret_flag': 'FLAG{alice_secret_flag}'
     },
     2: {
         'username': 'bob',
         'password': 'bobpass',
-        'secret': 'FLAG{bob_secret_flag}',
-        'email': 'bob@example.com'
+        'email': 'bob@example.com',
+        'secret_flag': 'FLAG{bob_secret_flag}'
     }
 }
+
 
 @app.route('/')
 def index():
     if 'user_id' in session:
         return f'''
+            <h2>Welcome to the CTF!</h2>
             Logged in as user ID {session["user_id"]} - <a href="/logout">Logout</a><br>
-            View your profile: <a href="/profile/{session["user_id"]}">My Profile</a>
+            <a href="/profile/{session["user_id"]}">View My Profile</a>
         '''
     return 'Welcome! <a href="/login">Login</a>'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
         for uid, user in users.items():
-            if request.form['username'] == user['username'] and request.form['password'] == user['password']:
+            if username == user['username'] and password == user['password']:
                 session['user_id'] = uid
                 return redirect(url_for('index'))
         return "Invalid credentials"
     return '''
+        <h2>Login</h2>
         <form method="post">
             Username: <input name="username"><br>
             Password: <input name="password" type="password"><br>
@@ -53,16 +58,23 @@ def logout():
 def profile(user_id):
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    # Broken Access Control: No check if user_id matches session user
-    user = users.get(user_id)
-    if user:
+
+    logged_in_user_id = session['user_id']
+    target_user = users.get(user_id)
+
+    if target_user:
+        exposed_flag = None
+        if logged_in_user_id != user_id:
+            exposed_flag = target_user.get('secret_flag')
+
         return render_template(
             "profile.html",
-            username=user['username'],
-            secret=user['secret'],
-            email=user['email']
+            username=target_user['username'],
+            email=target_user['email'],
+            exposed_flag=exposed_flag
         )
     return "User not found"
+
 
 if __name__ == '__main__':
     app.run(debug=True)

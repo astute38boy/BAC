@@ -1,12 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Profile</title>
+    <meta charset="UTF-8">
+    <title>User Profile - {{ username|e }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+            text-align: center;
+        }
+        .profile-card {
+            background: white;
+            max-width: 400px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .flag {
+            font-weight: bold;
+            color: #d6336c;
+            background: #fff0f5;
+            padding: 8px;
+            border-radius: 6px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h2>Welcome, {{ username }}</h2>
-    <p>Your secret flag: <strong>{{ secret }}</strong></p>
-    <p>Email: <strong>{{ email }}</strong></p>
-    <a href="/">Back to home</a>
+    <div class="profile-card">
+        <h2>Welcome, {{ username|e }}</h2>
+        <p><strong>Email:</strong> {{ email|e }}</p>
+
+        {% if exposed_flag %}
+            <p><strong>Something leaked on this profile...</strong></p>
+            <p class="flag">{{ exposed_flag|e }}</p>
+        {% else %}
+            <p><em>Nothing suspicious here.</em></p>
+        {% endif %}
+
+        <a href="/">← Back to Home</a>
+    </div>
 </body>
 </html>
