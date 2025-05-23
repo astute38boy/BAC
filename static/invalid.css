@@ -1,0 +1,50 @@
+/* invalid.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2f4156;
+    color: #f5efeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #567c8d;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 400px;
+}
+
+.message-box h1 {
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+.message-box p {
+    color: #c8d9e6;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.btn {
+    background-color: #f5efeb;
+    color: #2f4156;
+    padding: 0.7rem 1.8rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #c8d9e6;
+    color: #2f4156;
+}
