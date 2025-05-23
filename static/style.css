@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  background: #f5efeb;
+  color: #2f4156;
+}
+
+/* Container layout */
 .container {
   position: absolute;
   width: 100%;
@@ -6,101 +21,98 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Raleway', sans-serif;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.center.home-card {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  transition: all 0.4s ease;
-  max-width: 500px;
-  width: 90%;
-}
-
-.center.home-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-}
-
-.title {
-  color: #567c8d;
-  margin-bottom: 20px;
-}
-
-.info {
-  margin: 10px 0;
-  color: #2f4156;
-}
-
-.highlight {
-  color: #c8d9e6;
-}
-
-.link {
-  color: #2f4156;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.link:hover {
-  color: #567c8d;
-  text-decoration: underline;
-}
-
+/* Home card styling */
+.center.home-card,
 .profile-card {
   background: #ffffff;
   padding: 30px;
   border-radius: 12px;
+  text-align: center;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 90%;
-  text-align: center;
-  color: #2f4156;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: slideUp 0.8s ease;
 }
 
+/* Hover effect for cards */
+.center.home-card:hover,
 .profile-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
+/* Title Styling */
 .title {
   color: #567c8d;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  animation: fadeIn 1s ease forwards;
 }
 
+/* Info text */
 .info {
-  color: #2f4156;
   margin: 10px 0;
+  color: #2f4156;
+  animation: fadeIn 1s ease forwards;
 }
 
+/* Warning or flag section */
 .warning {
   color: #2f4156;
   font-weight: bold;
   margin-top: 15px;
+  animation: fadeIn 1.2s ease forwards;
 }
 
 .flag {
   background: #c8d9e6;
-  padding: 10px;
+  padding: 10px 20px;
   margin: 10px auto;
   display: inline-block;
   border-radius: 6px;
   font-family: monospace;
+  font-size: 1rem;
+  animation: bounceIn 0.8s ease;
 }
 
+/* Highlighted Text */
 .highlight {
   color: #567c8d;
 }
 
+/* Links */
 .link {
   margin-top: 20px;
   display: inline-block;
   color: #2f4156;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.link:hover {
+  color: #567c8d;
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
