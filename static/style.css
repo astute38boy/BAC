@@ -49,3 +49,58 @@
   color: #567c8d;
   text-decoration: underline;
 }
+
+.profile-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  color: #2f4156;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  color: #567c8d;
+  margin-bottom: 15px;
+}
+
+.info {
+  color: #2f4156;
+  margin: 10px 0;
+}
+
+.warning {
+  color: #2f4156;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.flag {
+  background: #c8d9e6;
+  padding: 10px;
+  margin: 10px auto;
+  display: inline-block;
+  border-radius: 6px;
+  font-family: monospace;
+}
+
+.highlight {
+  color: #567c8d;
+}
+
+.link {
+  margin-top: 20px;
+  display: inline-block;
+  color: #2f4156;
+  text-decoration: none;
+  font-weight: bold;
+}
+
