@@ -42,7 +42,8 @@ def login():
                 resp = make_response(redirect(url_for('index')))
                 resp.set_cookie('username', username)  # Unsecured cookie
                 return resp
-        return "Invalid credentials", 401
+        # Return the new invalid credentials page with 401 status
+        return render_template('invalid.html'), 401
     
     return render_template('login.html')
 
@@ -76,3 +77,10 @@ def profile():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# Note: This is a simplified example for educational purposes.
+# In a real-world application, you should never expose sensitive information like flags in user profiles.
+# Always ensure proper access control and secure cookie handling.
+# Also, remember to use HTTPS in production to secure cookies and sensitive data.
+# This code is intentionally insecure for educational purposes in a CTF context.
+# The flag is intentionally exposed in the profile of a lower-privileged user.
