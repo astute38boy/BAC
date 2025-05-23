@@ -11,13 +11,20 @@
             <h2 class="title">Welcome to the CTF!</h2>
 
             {% if username %}
-                <p class="info">Logged in as <strong class="highlight">{{ username|e }}</strong> – 
+                <p class="info">
+                    Logged in as <strong class="highlight">{{ username|e }}</strong> – 
                     <a href="{{ url_for('logout') }}" class="link">Logout</a>
                 </p>
-                <p class="info">Cookie says you are: <strong class="highlight">{{ user_cookie|e }}</strong></p>
-                <p><a href="{{ url_for('profile') }}" class="link">View My Profile</a></p>
+                <p class="info">
+                    Cookie says you are: <strong class="highlight">{{ user_cookie|e }}</strong>
+                </p>
+                <p class="info">
+                    <a href="{{ url_for('profile') }}" class="link">View My Profile</a>
+                </p>
             {% else %}
-                <p class="info">Welcome! <a href="{{ url_for('login') }}" class="link">Login</a></p>
+                <p class="info">
+                    Welcome! <a href="{{ url_for('login') }}" class="link">Login</a>
+                </p>
             {% endif %}
         </div>
     </div>
