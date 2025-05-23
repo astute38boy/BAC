@@ -1,45 +1,51 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #e6f0fa; /* Light sky blue background */
-    padding: 40px;
-    text-align: center;
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f5efeb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Raleway', sans-serif;
 }
 
-.profile-card {
-    background: #ffffff;
-    max-width: 450px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 51, 102, 0.2); /* navy blue shadow */
-    border: 1px solid #cce0ff;
+.center.home-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  max-width: 500px;
+  width: 90%;
 }
 
-.flag {
-    font-weight: bold;
-    color: #003366; /* deep navy blue */
-    background: #d9ecff; /* light sky blue background */
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px dashed #3399ff; /* soft blue border */
-    border-radius: 6px;
+.center.home-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
-a {
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #0056b3; /* dark blue link */
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #3399ff; /* lighter sky blue on hover */
+.title {
+  color: #567c8d;
+  margin-bottom: 20px;
 }
 
 .info {
-    font-size: 14px;
-    color: #336699; /* muted navy blue */
-    margin-top: 15px;
+  margin: 10px 0;
+  color: #2f4156;
+}
+
+.highlight {
+  color: #c8d9e6;
+}
+
+.link {
+  color: #2f4156;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link:hover {
+  color: #567c8d;
+  text-decoration: underline;
 }
