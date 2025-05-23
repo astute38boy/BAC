@@ -58,10 +58,12 @@
 </body>
 </html> -->
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>User Profile - {{ username|e }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -81,7 +83,7 @@
             <p>🔐 Cookie says you're: <strong style="color:#004080;">{{ request.cookies.get('username') }}</strong></p>
         </div>
 
-        <a href="/">← Back to Home</a>
+        <a href="{{ url_for('index') }}">← Back to Home</a>
     </div>
 </body>
 </html>
