@@ -1,50 +1,93 @@
-/* invalid.css */
+/* invalid.css - styled like your main theme */
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #2f4156;
-    color: #f5efeb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
+/* Container card styling */
 .container {
-    background-color: #567c8d;
-    padding: 2rem 3rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    text-align: center;
-    max-width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: slideUp 0.8s ease;
+  margin: auto;
+  margin-top: 10vh;
 }
 
+/* Hover effect for container (optional) */
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Body base styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2f4156;
+  color: #2f4156; /* main text color */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* align container near top */
+  min-height: 100vh;
+}
+
+/* Title styling */
 .message-box h1 {
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-    font-size: 2.5rem;
+  color: #567c8d;
+  margin-bottom: 20px;
+  font-size: 2.4rem;
+  animation: fadeIn 1s ease forwards;
 }
 
+/* Description/info text */
 .message-box p {
-    color: #c8d9e6;
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
+  color: #2f4156;
+  margin: 10px 0 25px 0;
+  font-size: 1.2rem;
+  animation: fadeIn 1s ease forwards;
 }
 
+/* Link styled as button */
 .btn {
-    background-color: #f5efeb;
-    color: #2f4156;
-    padding: 0.7rem 1.8rem;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    display: inline-block;
+  background-color: #c8d9e6;
+  color: #2f4156;
+  padding: 0.7rem 1.8rem;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  animation: fadeIn 1.2s ease forwards;
 }
 
 .btn:hover {
-    background-color: #c8d9e6;
-    color: #2f4156;
+  background-color: #567c8d;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
