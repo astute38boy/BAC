@@ -7,35 +7,18 @@
 </head>
 <body>
   <div class="container">
-    <div class="modal is-open">
-      <div class="modal-container">
-        <div class="modal-left">
-          <h2 class="modal-title">Login</h2>
-          <p class="modal-desc">Welcome back! Please enter your credentials.</p>
-
-          <form method="post">
-            <div class="input-block">
-              <label for="username" class="input-label">Username</label>
-              <input id="username" name="username" placeholder="Enter username" required>
-            </div>
-
-            <div class="input-block">
-              <label for="password" class="input-label">Password</label>
-              <input id="password" name="password" type="password" placeholder="Enter password" required>
-            </div>
-
-            <div class="modal-buttons">
-              <input type="submit" class="input-button" value="Login">
-              <a href="{{ url_for('index') }}">← Back to Home</a>
-            </div>
-          </form>
-
-        </div>
-
-        <div class="modal-right">
-          <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=800&q=80" alt="">
-        </div>
-      </div>
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+      <h2>Login</h2>
+      <form method="post">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <input type="submit" value="Login" />
+      </form>
+      <p style="margin-top: 10px;">
+        <a href="{{ url_for('index') }}" style="color: #333;">← Back to Home</a>
+      </p>
     </div>
   </div>
 </body>
