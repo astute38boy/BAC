@@ -58,7 +58,6 @@
 </body>
 </html> -->
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,15 +72,16 @@
             <p class="info"><strong>Email:</strong> {{ email|e }}</p>
 
             {% if exposed_flag %}
-                <p class="warning"><strong>⚠️ Oops... something leaked:</strong></p>
+                <p class="warning">⚠️ Oops... something leaked:</p>
                 <div class="flag highlight">{{ exposed_flag|e }}</div>
             {% else %}
                 <p class="info"><em>No secrets exposed. All looks good!</em></p>
             {% endif %}
 
-            <div class="info">
-                <p>🔐 Cookie says you're: <strong class="highlight">{{ request.cookies.get('username') }}</strong></p>
-            </div>
+            <p class="info">
+                🔐 Cookie says you're: 
+                <strong class="highlight">{{ request.cookies.get('username') }}</strong>
+            </p>
 
             <a href="{{ url_for('index') }}" class="link">← Back to Home</a>
         </div>
