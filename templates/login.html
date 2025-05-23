@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="post">
-            <input name="username" placeholder="Username" required><br>
-            <input name="password" type="password" placeholder="Password" required><br>
-            <input type="submit" value="Login">
-        </form>
-        <a href="{{ url_for('index') }}">← Back to Home</a>
+  <div class="container">
+    <div class="modal is-open">
+      <div class="modal-container">
+        <div class="modal-left">
+          <h2 class="modal-title">Login</h2>
+          <p class="modal-desc">Welcome back! Please enter your credentials.</p>
+
+          <form method="post">
+            <div class="input-block">
+              <label for="username" class="input-label">Username</label>
+              <input id="username" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="input-block">
+              <label for="password" class="input-label">Password</label>
+              <input id="password" name="password" type="password" placeholder="Enter password" required>
+            </div>
+
+            <div class="modal-buttons">
+              <input type="submit" class="input-button" value="Login">
+              <a href="{{ url_for('index') }}">← Back to Home</a>
+            </div>
+          </form>
+
+          <p class="sign-up">Don't have an account? <a href="#">Sign up here</a></p>
+        </div>
+
+        <div class="modal-right">
+          <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=800&q=80" alt="">
+        </div>
+      </div>
     </div>
+  </div>
 </body>
 </html>
