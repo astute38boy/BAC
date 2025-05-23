@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="profile-card">
+        <h2>Welcome to the CTF!</h2>
+        {% if username %}
+            <p>Logged in as <strong>{{ username|e }}</strong> - <a href="{{ url_for('logout') }}">Logout</a></p>
+            <p>Cookie says you are: <strong>{{ user_cookie|e }}</strong></p>
+            <p><a href="{{ url_for('profile') }}">View My Profile</a></p>
+        {% else %}
+            <p>Welcome! <a href="{{ url_for('login') }}">Login</a></p>
+        {% endif %}
+    </div>
+</body>
+</html>
