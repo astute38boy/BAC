@@ -59,7 +59,6 @@
 </html> -->
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,22 +67,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="profile-card">
-        <h2>Welcome, {{ username|e }}</h2>
-        <p><strong>Email:</strong> {{ email|e }}</p>
+    <div class="container">
+        <div class="center profile-card">
+            <h2 class="title">Welcome, {{ username|e }}</h2>
+            <p class="info"><strong>Email:</strong> {{ email|e }}</p>
 
-        {% if exposed_flag %}
-            <p><strong style="color:#003366;">⚠️ Oops... something leaked:</strong></p>
-            <div class="flag">{{ exposed_flag|e }}</div>
-        {% else %}
-            <p><em style="color: #007acc;">No secrets exposed. All looks good!</em></p>
-        {% endif %}
+            {% if exposed_flag %}
+                <p class="warning"><strong>⚠️ Oops... something leaked:</strong></p>
+                <div class="flag highlight">{{ exposed_flag|e }}</div>
+            {% else %}
+                <p class="info"><em>No secrets exposed. All looks good!</em></p>
+            {% endif %}
 
-        <div class="info">
-            <p>🔐 Cookie says you're: <strong style="color:#004080;">{{ request.cookies.get('username') }}</strong></p>
+            <div class="info">
+                <p>🔐 Cookie says you're: <strong class="highlight">{{ request.cookies.get('username') }}</strong></p>
+            </div>
+
+            <a href="{{ url_for('index') }}" class="link">← Back to Home</a>
         </div>
-
-        <a href="{{ url_for('index') }}">← Back to Home</a>
     </div>
 </body>
 </html>
