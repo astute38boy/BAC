@@ -3,20 +3,20 @@ from flask import Flask, request, session, redirect, url_for, render_template, m
 app = Flask(__name__)
 app.secret_key = 'ctfkey'  # Insecure on purpose for CTF
 
-# Users with flags hidden in Bob's profile (higher privilege)
+# Users with flags hidden in Iman's profile (higher privilege)
 users = {
     1: {
-        'username': 'alice',
-        'password': 'alicepass',
-        'email': 'alice@example.com',
+        'username': 'aqil',
+        'password': 'aqilpass',
+        'email': 'aqil@example.com',
         'role': 'user'  # Lower privilege
     },
     2: {
-        'username': 'bob',
-        'password': 'bobpass',
-        'email': 'bob@example.com',
+        'username': 'iman',
+        'password': 'imanpass',
+        'email': 'iman@example.com',
         'role': 'admin',  # Higher privilege
-        'secret_flag': 'FLAG{bob_admin_flag}'
+        'secret_flag': 'FLAG{iman_admin_flag}'
     }
 }
 
@@ -25,7 +25,6 @@ def index():
     if 'user_id' in session:
         username = users[session['user_id']]['username']
         user_cookie = request.cookies.get('username')  # Read cookie
-
         return render_template('index.html', username=username, user_cookie=user_cookie)
     return render_template('index.html')
 
@@ -37,14 +36,11 @@ def login():
         for uid, user in users.items():
             if username == user['username'] and password == user['password']:
                 session['user_id'] = uid
-
                 # Set cookie when user logs in
                 resp = make_response(redirect(url_for('index')))
                 resp.set_cookie('username', username)  # Unsecured cookie
                 return resp
-        # Return the new invalid credentials page with 401 status
         return render_template('invalid.html'), 401
-    
     return render_template('login.html')
 
 @app.route('/logout')
@@ -64,9 +60,9 @@ def profile():
     email = current_user['email']
     exposed_flag = None
 
-    # ❗ Faulty Access Control: If the user is not an admin, still fetch the admin's flag
+    # ❗ Faulty Access Control: Non-admin can see admin flag
     if current_user['role'] != 'admin':
-        exposed_flag = users[2].get('secret_flag')  # Leaks Bob's admin flag!
+        exposed_flag = users[2].get('secret_flag')  # Leaks Iman's admin flag
 
     return render_template(
         "profile.html",
@@ -75,12 +71,19 @@ def profile():
         exposed_flag=exposed_flag
     )
 
+# Vulnerable Admin-Only Route
+@app.route('/admin')
+def admin_panel():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    user = users[session['user_id']]
+    
+    # ❗ Weak check: only checking for username, not role
+    if user['username'] != 'iman':
+        return "Access denied. You are not the admin.", 403
+
+    return render_template("admin.html", flag="FLAG{admin_panel_accessed}", username=user['username'])
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-# Note: This is a simplified example for educational purposes.
-# In a real-world application, you should never expose sensitive information like flags in user profiles.
-# Always ensure proper access control and secure cookie handling.
-# Also, remember to use HTTPS in production to secure cookies and sensitive data.
-# This code is intentionally insecure for educational purposes in a CTF context.
-# The flag is intentionally exposed in the profile of a lower-privileged user.
