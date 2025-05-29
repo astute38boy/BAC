@@ -61,7 +61,7 @@ def profile():
     exposed_flag = None
 
     # ❗ Faulty Access Control: Non-admin can see admin flag
-    if current_user['role'] != 'admin':
+    if username == 'iman':
         exposed_flag = users[2].get('secret_flag')  # Leaks Iman's admin flag
 
     return render_template(
