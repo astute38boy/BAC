@@ -1,7 +1,8 @@
+import os
 from flask import Flask, request, session, redirect, url_for, render_template, make_response
 
 app = Flask(__name__)
-app.secret_key = 'ctfkey'  # Insecure on purpose for CTF
+app.secret_key = os.getenv('SECRET_KEY', 'fallback_key_for_dev')
 
 # Users with flags hidden in Iman's profile (higher privilege)
 users = {
@@ -36,9 +37,9 @@ def login():
         for uid, user in users.items():
             if username == user['username'] and password == user['password']:
                 session['user_id'] = uid
-                # Set cookie when user logs in
+                session['auth_method'] = 'login'  # Mark it as legit login
                 resp = make_response(redirect(url_for('index')))
-                resp.set_cookie('username', username)  # Unsecured cookie
+                resp.set_cookie('username', username)
                 return resp
         return render_template('invalid.html'), 401
     return render_template('login.html')
@@ -47,7 +48,7 @@ def login():
 def logout():
     session.clear()
     resp = make_response(redirect(url_for('index')))
-    resp.set_cookie('username', '', expires=0)  # Clear cookie
+    resp.set_cookie('username', '', expires=0)
     return resp
 
 @app.route('/profile')
@@ -58,11 +59,8 @@ def profile():
     current_user = users[session['user_id']]
     username = current_user['username']
     email = current_user['email']
-    exposed_flag = None
 
-    # ❗ Faulty Access Control: Non-admin can see admin flag
-    if username == 'iman':
-        exposed_flag = users[2].get('secret_flag')  # Leaks Iman's admin flag
+    exposed_flag = None  # No flag on profile
 
     return render_template(
         "profile.html",
@@ -71,19 +69,37 @@ def profile():
         exposed_flag=exposed_flag
     )
 
-# Vulnerable Admin-Only Route
+# Vulnerable Admin-Only Route (flag only if cookie-forged)
 @app.route('/admin')
 def admin_panel():
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
     user = users[session['user_id']]
-    
-    # ❗ Weak check: only checking for username, not role
+
+    # ❗ Only Iman can access
     if user['username'] != 'iman':
         return "Access denied. You are not the admin.", 403
 
-    return render_template("admin.html", flag="FLAG{admin_panel_accessed}", username=user['username'])
+    # ❗ Only forged session gets flag
+    flag = "FLAG{admin_panel_accessed}" if session.get('auth_method') != 'login' else "[REDACTED]"
+
+    return render_template("admin.html", flag=flag, username=user['username'])
+
+# Debug route to expose current user's full info (only if forged)
+@app.route('/debug')
+def debug():
+    if 'user_id' not in session:
+        return "You are not logged in.", 403
+
+    user = users[session['user_id']]
+    user_copy = user.copy()
+
+    # Only show flag if NOT logged in normally
+    if session.get('auth_method') == 'login' and 'secret_flag' in user_copy:
+        user_copy['secret_flag'] = '[REDACTED]'
+
+    return f"<pre>{user_copy}</pre>"
 
 if __name__ == '__main__':
     app.run(debug=True)
