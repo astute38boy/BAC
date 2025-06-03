@@ -99,7 +99,7 @@ def debug():
     if session.get('auth_method') == 'login' and 'secret_flag' in user_copy:
         user_copy['secret_flag'] = '[REDACTED]'
 
-    return f"<pre>{user_copy}</pre>"
+    return render_template("debug.html", user_copy=user_copy)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Debug Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='debug.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <div class="center home-card">
+            <h2 class="title">Debug Information</h2>
+
+            <p class="info">
+                Logged in as <strong class="highlight">{{ user_copy['username']|e }}</strong> – 
+                <a href="{{ url_for('logout') }}" class="link">Logout</a>
+            </p>
+
+            <div class="debug-box">
+                <pre>{{ user_copy | tojson(indent=2) }}</pre>
+            </div>
+
+            <p class="info">
+                <a href="{{ url_for('index') }}" class="link">Back to Home</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
